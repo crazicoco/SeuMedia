@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.CommentDao">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Comment" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="author_id" property="author_id" jdbcType="BIGINT" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
+        <result column="create_by" property="create_by" jdbcType="TIMESTAMP" />
+        <result column="modified_by" property="modified_by" jdbcType="TIMESTAMP" />
+        <result column="is_effective" property="is_effect" jdbcType="TINYINT" />
+        <result column="idDeleted" property="idDeleted" jdbcType="TINYINT" />
+    </resultMap>
+
+
+    <insert id="addComment">
+        insert into tbl_comment(content, author_id, ip) values (#{content, jdbcType=VARCHAR}, #{author_id, jdbcType=BIGINT}, #{userIP, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectByCreateBy" resultMap="BaseResultMap">
+        select * from tbl_comment where author_id=#{author_id, jdbcType=BIGINT} ORDER BY create_by
+    </select>
+
+
+    <insert id="addArticleComment">
+        insert into tbl_article_comment (article_id, comment_id) values (#{article_id,jdbcType=BIGINT}, #{comment_id,jdbcType=BIGINT})
+    </insert>
+
+    <update id="updateComment">
+        update  tbl_comment set content= #{newContent, jdbcType=VARCHAR} , modified_by= #{time, jdbcType=TIMESTAMP} where id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <update id="deleteComment" >
+        update tbl_comment set  idDeleted = 1  where id = #{id, jdbcType=BIGINT};
+        update tbl_article_comment set  idDeleted = 1 where comment_id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <select id="showComment" resultMap="BaseResultMap">
+        select * from tbl_comment where author_id=#{author_id, jdbcType=BIGINT} and idDeleted = 0 ORDER BY create_by
+    </select>
+
+<!--    <select id="showComment" resultMap="BaseResultMap">-->
+<!--        select * from tbl_comment where author_id=#{author_id, jdbcType=BIGINT} ORDER BY create_by-->
+<!--    </select>-->
+
+</mapper>

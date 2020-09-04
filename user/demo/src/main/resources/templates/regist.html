@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<script>
+   /* $().ready(function () {
+       var validator = $("#form").validate({
+            debug: true,
+            errorElement: 'label',
+            errorPlacement: function(error, element) {
+                $(element).closest("form").find("label[for='" + element.attr( "id" ) + "']").append(error)
+            }
+
+        });
+
+
+    });*/
+
+    function validateFun(){
+
+        var mobile = /^1[3456789]\d{9}$/;
+        var phone=document.getElementById("phone").value;
+        if(!(mobile.test(phone)&& phone.length==11) )
+        {
+             $("#phoneLabel").text("请输入正确格式的手机号");
+             return false;
+        }
+       /*  var lengthUsername=$("#username").length;
+        if(!(lengthUsername>=3&&lengthUsername<=12)){
+            $("#usernameLabel").text("用户名长度大于3小于12");
+            return false;
+        }
+        var lengthPassword=$("#passwordLabel").length;
+
+        if(!(lengthPassword>=3&&lengthPassword<=12)){
+            $("passwordLabel").text("密码长度大于3小于12");
+            return false;
+        }
+        var email=/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i;
+         if(!(email.test($("#email").value))){
+            $("emailLabel").text("email格式不正确");
+            return false;
+         }*/
+         return true;
+    }
+</script>
+<h1 align="center">注册页面</h1>
+<hr>
+<form th:action="@{/SEUMedia/registFromHtml}" id="form" th:onsubmit="return validateFun()" method="post">
+    <div style="position:absolute;left: 900px">
+        <p><label>用户名：</label><input type="text" name="username" required  minlength="3" maxlength="12" id="username"/> <label id="usernameLabel"></label></p>
+        <p><label>密&nbsp;码：</label>&nbsp;&nbsp;<input type="password" name="password" required   minlength="3" maxlength="12" id="password"/><label id="passwordLabel"></label></p>
+        <p><label>电&nbsp;话：</label>&nbsp;&nbsp;<input type="text" name="phone" required id="phone"/><label id ="phoneLabel"></label></p>
+        <p><label>Email：</label>&nbsp;<input  type="email"  name="email" required id="email"/><label id="emailLabel"></label></p>
+    <p><input type="submit" value="提交"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重置"/></p>
+    </div>
+</form>
+</body>
+</html>

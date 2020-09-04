@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试JavaScript</title>
+    <style>
+        h1.centerStyle{
+            align:center;
+            border:2px solid #c0d;
+            border-radius: 5px;
+            width:30%;
+            padding: 2px;
+        }
+        .ancestors *
+        {
+            display: block;
+            border: 2px solid lightgrey;
+            color: lightgrey;
+            padding: 5px;
+            margin: 15px;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+</head>
+<body>
+<h1 class="centerStyle">测试JavaScript的界面</h1>
+<p class="para1" id="para1">段落</p>
+<p>段落2</p>
+<a href="http://www.baidu.com" id="myLink">百度</a>
+<p id="para2">外部文本显示的区域</p>
+<p id="para3">显示文本的位置</p>
+<ol>
+    <li>苹果</li>
+    <li>橘子</li>
+</ol>
+<ul>
+    <li>apple</li>
+    <li>orange</li>
+</ul>
+
+<div class="ancestors">div（曾曾祖父元素）
+    <div id="myDiv1">div（曾祖父元素）
+    <ul>ul元素(祖父元素)
+        <li>li元素(父元素)
+            <span id="mySpan">span元素</span>
+        </li>
+    </ul>
+    </div>
+</div>
+<div id="getJson"></div>
+<button id="button1">测试AJAX</button>
+<button id="button2">Http Get请求</button>
+<button id="button3">Http Post请求</button><br>
+<div style="height:100px"></div>
+<button id="button4">测试noConflict</button>
+<button id="button5">getJSON</button>
+<div style="height:100px"></div>
+<button id="button6">测试AJAX</button>
+<div id="div1"></div>
+
+<script>
+   /* $(document).ready(function () {
+       // alert("欢迎！");
+
+        $("#para1").click(function () {
+            $(this).text("这是我的段落");
+        });
+        $("#myDiv1").children().css({"color":"red","border":"2px solid #c0d","border-radius":"5px","width":"30%"});
+    });*/
+      // $("#mySpan").parentsUntil("div").css({"color":"red","border":"2px solid #c0d","border-radius":"5px","width":"30%"});
+   /*parent()：返回父元素
+   parents():返回所有的祖先元素（一直到<html>）
+   parentsUntil():返回介于子元素和某个指定的祖先元素之间的所有元素
+   */
+   $(document).ready(function () {
+        $("#button1").click(function () {
+          $("#para2").load("text/test.txt",function (responseTxt,statusTxt,xhr) {
+              if(statusTxt=="success"){
+                  alert("外部加载成功");
+              }
+              else if(statusTxt=="error"){
+                  alert("外部加载失败\n"+responseTxt+"\n"+statusTxt);
+              }
+          });
+         // $("#myLink").attr({"href":location.href});//给a标签属性href设置值
+        });
+    });
+   $(document).ready(function () {
+       $("#button3").click(function(){
+           $.post("/try/ajax/demo_test_post.php",{
+                   name:"菜鸟教程",
+                   url:"http://www.runoob.com"
+               },
+               function(data,status){
+                   alert("数据: \n" + data + "\n状态: " + status);
+               });
+       });
+   });
+   $(document).ready(function () {
+       $("#button5").click(function () {
+           $.getJSON("https://www.runoob.com/try/ajax/jsonp.php?jsoncallback=?",function (data) {
+             var html="<ul>";
+             for(var i=0;i<data.length;++i){
+                 html+="<li>"+data[i]+"</li>";
+             }
+             html+="</ul>";
+             $("#getJson").html(html);
+           });
+       });
+
+   });
+   $(document).ready(function () {
+       $("#button6").click(function () {
+           $.ajax({
+               url:"text/test.txt",
+               success:function (result) {
+                   $("#div1").text(result);
+               }
+           });
+       });
+   });
+
+</script>
+<div id="showTime" style="position: fixed;right:15px;top:15px;border:2px solid #258024;border-radius: 5px; "></div>
+<p id="para-cookie"></p>
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+    $(document).ready(function () {
+       $.cookie("name","SEUMedia-cookie");
+       var cookieName=$.cookie("name");
+       $("#para-cookie").text(cookieName);
+    });
+    setInterval(function () {
+        var date=new Date();
+        var time;
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        var day=date.getDate();
+        var hour=date.getHours();
+        var min=date.getMinutes();
+        var s=date.getSeconds();
+        time=year+"-"+month+"-"+day+"\n"+hour+":"+min+":"+s;
+        document.getElementById("showTime").innerText=time;
+    },1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<h1 align="center">登录页面</h1>
+<hr>
+<form th:action="@{/SEUMedia/loginFromHtml}" method="post">
+    <p align="center">用户名：<input type="text" name="username"required/><br/></p>
+    <p align="center">密&nbsp;码：&nbsp;&nbsp;<input type="password" name="password" required/><br/></p>
+    <p align="center"><input type="submit" value="提交"/>&nbsp;&nbsp;<input type="reset" value="重置"/></p>
+</form>
+
+</body>
+</html>

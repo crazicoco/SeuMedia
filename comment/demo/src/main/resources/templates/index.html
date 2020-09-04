@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>增加评论功能测试</h1>
+    <div id = "TestAddComment">
+        <div>
+            <form id="addComment" th:action="@{addComment}" >
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td class="list">
+                            输入评论
+                            <input type="text" th:name="content">
+                        </td>
+                        <td class="list">
+                           作者id
+                            <input type="text" th:name="author_id">
+                        </td>
+                        <td class="list">
+                            文章id
+                            <input type="text" th:name="article_id">
+                        </td>
+
+                        <td class="list">
+                            <input type="submit" class="btn btn-primary" th:value="addComment">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <h1>修改功能测试</h1>
+    <div id = "TestUpdateComment">
+        <div>
+            <form id="updateComment" th:action="@{updateComment}" >
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td class="list">
+                            输入评论
+                            <input type="text" th:name="newContent">
+                        </td>
+                        <td class="list">
+                            评论id
+                            <input type="text" th:name="id">
+                        </td>
+
+                        <td class="list">
+                            <input type="submit" class="btn btn-primary" th:value="updateComment">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <h1>删除功能测试</h1>
+    <div id = "TestdeleteComment">
+        <div>
+            <form id="deleteComment" th:action="@{deleteComment}" >
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td class="list">
+                            要删除的评论id
+                            <input type="text" th:name="id">
+                        </td>
+
+                        <td class="list">
+                            <input type="submit" class="btn btn-primary" th:value="deleteComment">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <h1>显示功能测试</h1>
+    <div id = "SowComment">
+        <div>
+            <form id="showComment" th:action="@{showComment}" >
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td class="list">
+                            作者id
+                            <input type="text" th:name="author_id">
+                        </td>
+
+                        <td class="list">
+                            <input type="submit" class="btn btn-primary" th:value="showComment">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
